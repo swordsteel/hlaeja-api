@@ -1,0 +1,54 @@
+spring:
+  profiles:
+    active: development
+  application:
+    name: "%APP_NAME%"
+    version: "%APP_VERSION%"
+    build:
+      time: "%APP_BUILD_TIME%"
+      os:
+        name: "%APP_BUILD_OS_NAME%"
+        version: "%APP_BUILD_OS_VERSION%"
+
+---
+###############################
+### Development environment ###
+###############################
+spring:
+  config:
+    activate:
+      on-profile: development
+
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-store: classpath:certs/keystore.p12
+    key-store-type: PKCS12
+    key-store-password: password
+
+---
+##########################
+### Docker environment ###
+##########################
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-store: classpath:certs/keystore.p12
+    key-store-type: PKCS12
+    key-store-password: password
+
+---
+##############################
+### Production environment ###
+##############################
+spring:
+  config:
+    activate:
+      on-profile: production
